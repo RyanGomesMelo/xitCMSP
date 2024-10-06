@@ -1,10 +1,21 @@
-
+// ==UserScript==
+// @name         xit cmsp
+// @namespace    https://cmspweb.ip.tv/
+// @version      1.0
+// @description  xitzin
+// @connect      cmsp.ip.tv
+// @connect      edusp-api.ip.tv
+// @author       Ryan
+// @match        https://cmsp.ip.tv/*
+// @icon         https://edusp-static.ip.tv/permanent/66aa8b3a1454f7f2b47e21a3/full.x-icon
+// @license      GNU Affero General Public License v3.0
+// ==/UserScript==
 
 (function() {
     'use strict';
 
     let lesson_regex = /https:\/\/cmsp\.ip\.tv\/mobile\/tms\/task\/\d+\/apply/;
-    console.log("-- CMSP CHEAT --");
+    console.log("-- Xit Iniciado  --");
 
     function transformJson(jsonOriginal) {
         let novoJson = {
@@ -125,7 +136,7 @@
 
                             const watermark = document.querySelector('.MuiTypography-root.MuiTypography-body1.css-1exusee');
                             if (watermark) {
-                                watermark.textContent = 'Xit do Ryan :)';
+                                watermark.textContent = 'Xit do Ryan';
                                 watermark.style.fontSize = '70px';
                                 setTimeout(() => {
                                     document.querySelector('button.MuiButtonBase-root.MuiButton-root.MuiLoadingButton-root.MuiButton-contained.MuiButton-containedInherit.MuiButton-sizeMedium.MuiButton-containedSizeMedium.MuiButton-colorInherit.css-prsfpd').click();
