@@ -1,0 +1,67 @@
+// Salva a função original do JSON.parse para poder usá-la mais tarde.
+let originalParse = JSON.parse;
+
+
+// Substitui a função JSON.parse por uma nova função personalizada.
+JSON.parse = function(t, e) {
+    
+    // Usa a função original do JSON.parse para obter o resultado original.
+    let o = originalParse(t, e);
+    
+    try {
+        // Tenta fazer o parse do conteúdo de itemData no objeto o.
+        const t = JSON.parse(o.data.assessmentItem.item.itemData);
+
+        // Se o campo 'question' existir e o primeiro caractere do conteúdo da questão for maiúsculo...
+        if (t.question && t.question.content && t.question.content[0] === t.question.content[0].toUpperCase()) {
+            
+            // Exibe o objeto de questão no console.
+            console.log(t);
+
+            // Substitui o conteúdo da questão por uma string personalizada.
+            t.question.content = "Please select a answer choice.\n [[☃ radio 0]] [[☃ explanation 0]]";
+            
+            // Define os widgets de opções de escolha e explicação com novos valores.
+            t.question.widgets = {
+                "radio 0": {
+                    options: {
+                        choices: [
+                            { content: "Correto", correct: true },  // Opção correta.
+                            { content: "Incorreto", correct: false } // Opção incorreta.
+                        ]
+                    }
+                },
+                "explanation 0": {
+                    options: {
+                        explanation: "This hack was made by Ryan Gomes on GitHub.",  // Explicação do hack.
+                        hidePrompt: "",  // Oculta o prompt.
+                        showPrompt: "Credit"  // Exibe os créditos.
+                    }
+                }
+            };
+            
+            // Atualiza o itemData com o novo JSON, convertido para string.
+            o.data.assessmentItem.item.itemData = JSON.stringify(t);
+        }
+    } catch (t) {
+        // Captura qualquer erro que possa ocorrer e ignora.
+    }
+
+    // Retorna o objeto 'o' modificado ou original.
+    return o;
+};
+
+// Função personalizada para recarregar a página sem atualizar o endereço (soft reload).
+location.softReload = () => {
+    
+    // Obtém todo o conteúdo HTML da página atual.
+    const t = document.getElementsByTagName("html")[0].outerHTML;
+
+    // Abre o documento, sobrescreve com o HTML atual e fecha.
+    document.open();
+    document.write(t);
+    document.close();
+};
+
+// Chama a função de recarregar a página.
+location.softReload();
